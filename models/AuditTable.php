@@ -31,38 +31,12 @@ use yii\db\ActiveRecord;
 	 * @param string $className active record class name.
 	 * @return AuditTable the static model class
 	 */
-	public static $AuditTable =[
-		 array(
-	'id'=> AuditTable->ID,
-	'description' => AuditTable->Description,
-		)
-	];
-	public static function getDb()
-    {
-        // use the "db2" application component
-        return \Yii::$app->db2;  
-    }
 
-    public function tableName()
-	{
-		return 'audit_table';
-	}
-    public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'description' => 'Description',
-			'action' => 'Action',
-			'model' => 'Model',
-			'idModel' => 'Id Model',
-			'field' => 'Field',
-			'userid' => 'Userid',
-			'time_stamp' => 'Time Stamp',
-			'old_value' => 'Old Value',
-			'new_value' => 'New Value',
-		);
-	}
-    public function rules()
+	 public static function tableName()
+	 {
+		 return 'AuditTable';
+	 }
+	 public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
@@ -77,16 +51,25 @@ use yii\db\ActiveRecord;
 			array('id, description, action, model, idModel, field, userid, time_stamp, old_value, new_value', 'safe', 'on'=>'search'),
 		);
 	}
-    public function search()
+	public function attributeLabels()
 	{
-        $id = AuditTable::findBySql('SELECT AuditTable, id FROM api2')->all();
-      $description = AuditTable::findBySql('SELECT AuditTable, description FROM api2')->all();
-      $action = AuditTable::findBySql('SELECT AuditTable, action FROM api2')->all();
-      $model = AuditTable::findBySql('SELECT AuditTable, model FROM api2')->all();
-      $idModel = AuditTable::findBySql('SELECT AuditTable, idModel FROM api2')->all();
-      $field = AuditTable::findBySql('SELECT AuditTable, field FROM api2')->all();
-      $time_stamp = AuditTable::findBySql('SELECT AuditTable, time_stamp FROM api2')->all();
-      $old_value = AuditTable::findBySql('SELECT AuditTable, old_value FROM api2')->all();
-      $new_value = AuditTable::findBySql('SELECT AuditTable, new_value FROM api2')->all();
+		return array(
+			'id' => 'ID',
+			'description' => 'Description',
+			'action' => 'Action',
+			'model' => 'Model',
+			'idModel' => 'Id Model',
+			'field' => 'Field',
+			'userid' => 'Userid',
+			'time_stamp' => 'Time Stamp',
+			'old_value' => 'Old Value',
+			'new_value' => 'New Value',
+		);
+	}
+	public static function getDb()
+    {
+        // use the "db2" application component
+        return \Yii::$app->db2;  
     }
+	
 }
