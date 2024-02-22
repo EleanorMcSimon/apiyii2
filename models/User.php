@@ -49,6 +49,16 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
         }
         return new static($dbUser);
     }
+    public static function findByemail($email) {
+        $c =  Yii::$app->db->createCommand('SELECT * FROM api_users Where email = :email')->bindParam(':email',$email);
+        $dbUser =$c->queryOne();
+        //$dbUser->authKey = 'test100key';
+if (!count($dbUser)) {
+    return null;
+}
+return new static($dbUser);
+    
+    }
     public static function findIdentity($id)
     {
         
@@ -120,6 +130,17 @@ return new static($dbUser);
         return $this->authKey === $authKey;
     }
    
+     /**
+     * Validates password
+     *
+     * @param  string  $email password to validate
+     * @return boolean if password provided is valid for current user
+     */
+    public function validateEmail($email) {
+        
+
+        return $this->email === $email;
+    }
     /**
      * Validates password
      *
